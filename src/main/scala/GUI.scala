@@ -107,43 +107,43 @@ object GUI extends JFXApp {
 
   }
 
-    def PrintOrderList(): Unit = {
+  def PrintOrderList(): Unit = {
 
-      stage = new PrimaryStage {
-        title = "TableView with custom color cell"
-        scene = new Scene {
-          content = new TableView[Person](characters) {
-            columns ++= List(
-              new TableColumn[Person, String] {
-                text = "ID"
-                cellValueFactory = { _.value.firstName }
-                prefWidth = 100
-              },
-              new TableColumn[Person, String]() {
-                text = "Status"
-                cellValueFactory = { _.value.lastName }
-                prefWidth = 100
-              },
-              new TableColumn[Person, Color] {
-                text = "Colour"
-                cellValueFactory = { _.value.favoriteColor }
-                // Render the property value when it changes,
-                // including initial assignment
-                cellFactory = { _ =>
-                  new TableCell[Person, Color] {
-                    item.onChange { (_, _, newColor) =>
-                      graphic = new Circle {fill = newColor; radius = 8}
-                    }
+    stage = new PrimaryStage {
+      title = "TableView with custom color cell"
+      scene = new Scene {
+        content = new TableView[Person](characters) {
+          columns ++= List(
+            new TableColumn[Person, String] {
+              text = "ID"
+              cellValueFactory = { _.value.firstName }
+              prefWidth = 100
+            },
+            new TableColumn[Person, String]() {
+              text = "Status"
+              cellValueFactory = { _.value.lastName }
+              prefWidth = 100
+            },
+            new TableColumn[Person, Color] {
+              text = "Colour"
+              cellValueFactory = { _.value.favoriteColor }
+              // Render the property value when it changes,
+              // including initial assignment
+              cellFactory = { _ =>
+                new TableCell[Person, Color] {
+                  item.onChange { (_, _, newColor) =>
+                    graphic = new Circle {fill = newColor; radius = 8}
                   }
                 }
-                prefWidth = 100
               }
-            )
-          }
+              prefWidth = 100
+            }
+          )
         }
       }
-
-
     }
+
+
+  }
 
 }
