@@ -19,7 +19,7 @@ import scalafx.scene.control.TableColumn._
 object GUI extends JFXApp {
 
   val characters = ObservableBuffer[Person](
-    new Person("Peggy", "Sue", Color.Violet),
+    new Person(1, OrderStatus.Ordered,"Bob", Color.Violet),
     new Person("Rocky", "Raccoon", Color.GreenYellow),
     new Person("Bungalow ", "Bill", Color.DarkSalmon)
   )
