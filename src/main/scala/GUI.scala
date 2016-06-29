@@ -1,7 +1,7 @@
-import scala.collection.mutable.ArrayBuffer
 import scalafx.Includes._
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.application.{JFXApp, Platform}
+import scalafx.beans.property.{ObjectProperty, StringProperty}
 import scalafx.collections.ObservableBuffer
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
@@ -10,24 +10,23 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._
 import scalafx.scene.layout.GridPane
 import scalafx.scene.paint.Color
+import scalafx.scene.shape.Circle
+import scalafx.scene.control.TableColumn._
+
+
+
 
 object GUI extends JFXApp {
-  /*
-    stage = new JFXApp.PrimaryStage {
-      //icons += new Image("/scalafx/sfx.png")
-      scene = new Scene {
-        title = "login"
-        content = new VBox {
-          children = new Button("Press to continue") {
-            onAction = handle {onShowLoginDialog()}
-          }
-          padding = Insets(top = 24, right = 64, bottom = 24, left = 64)
-        }
-      }
-    }
-  */
-  val characters = ObservableBuffer[Order]()
+
+  val characters = ObservableBuffer[Person](
+    new Person("Peggy", "Sue", Color.Violet),
+    new Person("Rocky", "Raccoon", Color.GreenYellow),
+    new Person("Bungalow ", "Bill", Color.DarkSalmon)
+  )
+  //val characters = ObservableBuffer[Order]()
   var OrderList1 = new OrderList
+
+  PrintOrderList
 
   onShowLoginDialog
   def onShowLoginDialog(): Unit = {
@@ -107,23 +106,44 @@ object GUI extends JFXApp {
     }
 
   }
-/*
+
     def PrintOrderList(): Unit = {
 
       stage = new PrimaryStage {
-        title = "Order Table"
+        title = "TableView with custom color cell"
         scene = new Scene {
-          content = new TableView[Order](characters) {
+          content = new TableView[Person](characters) {
             columns ++= List(
-              new TableColumn[Order, String] {
-                text = "Item"
-                cellValueFactory = {_.value.item}
+              new TableColumn[Person, String] {
+                text = "ID"
+                cellValueFactory = { _.value.firstName }
                 prefWidth = 100
               },
-              prefWidth = 100
+              new TableColumn[Person, String]() {
+                text = "Status"
+                cellValueFactory = { _.value.lastName }
+                prefWidth = 100
+              },
+              new TableColumn[Person, Color] {
+                text = "Colour"
+                cellValueFactory = { _.value.favoriteColor }
+                // Render the property value when it changes,
+                // including initial assignment
+                cellFactory = { _ =>
+                  new TableCell[Person, Color] {
+                    item.onChange { (_, _, newColor) =>
+                      graphic = new Circle {fill = newColor; radius = 8}
+                    }
+                  }
+                }
+                prefWidth = 100
+              }
             )
           }
         }
-      }*/
+      }
+
+
+    }
 
 }
