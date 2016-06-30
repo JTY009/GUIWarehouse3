@@ -1,10 +1,6 @@
-import com.sun.xml.internal.bind.v2.model.core.ID
-
 import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
-import scala.concurrent.duration._
-import ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
 
 
 
@@ -16,13 +12,20 @@ class OrderList(){
   //stuff
 
   var ol1 = OrderLine(901, 3, 1)
-  var order1 = Order(1,2, OrderStatus.Ordered, ArrayBuffer(ol1))
-  var order2 = new Order(2, 4, OrderStatus.Ordered, ArrayBuffer(ol1))
-  var order3 = new Order(3, 2, OrderStatus.Ordered, ArrayBuffer(ol1))
-  var order4 = new Order(4, 3, OrderStatus.Ordered, ArrayBuffer(ol1))
-  var order5 = new Order(5, 2, OrderStatus.Ordered, ArrayBuffer(ol1))
-  var order6 = new Order(6, 1, OrderStatus.Ordered, ArrayBuffer(ol1))
-  var order7 = new Order(7, 5, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order1 = Order(1, 2, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order2 = Order(2, 4, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order3 = Order(3, 2, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order4 = Order(4, 3, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order5 = Order(5, 2, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order6 = Order(6, 1, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order7 = Order(7, 5, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order8 = Order(8, 8, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order9 = Order(9, 4, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order10 = Order(10, 6, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order11 = Order(11, 13, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order12 = Order(12, 9, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order13 = Order(13, 10, OrderStatus.Ordered, ArrayBuffer(ol1))
+  var order14 = Order(14, 2, OrderStatus.Ordered, ArrayBuffer(ol1))
 
   var list = ArrayBuffer(order1)
   list += order2
@@ -31,6 +34,14 @@ class OrderList(){
   list += order5
   list += order6
   list += order7
+  list += order8
+  list += order9
+  list += order10
+  list += order11
+  list += order12
+  list += order13
+  list += order14
+
 
   def viewOrderItems(products: Inventory): Unit = {
 
@@ -38,8 +49,8 @@ class OrderList(){
       for (i <- order.orderLine) {
         println(s"ORDER ${order.id} ITEMS\n------------------\nProductID:\t" + i.pid + "\nQuantity:\t" + i.quantity + "\nPorousware Quantity:\t" + i.porouswareQuantity+"\n------------------\n")
 
-//        val location = products.getProductById(i.pid).location
-//        println("\n\nThis product is found in: " + location)
+        //        val location = products.getProductById(i.pid).location
+        //        println("\n\nThis product is found in: " + location)
 
       }
     }
@@ -59,7 +70,7 @@ class OrderList(){
 
 
     var ind = list(i)
-    "ID : " + list(i).id + " | Item: " + products.getProductById(list(i).id).get.item + " | Quantity : " + list(i).quantity +
+    "ID : " + list(i).id + " | Item: " + products.getProductById(list(i).id).get.Name + " | Quantity : " + list(i).quantity +
       " | Status : " + list(i).status
 
   }
